@@ -5,28 +5,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class RectangleArea {
-    int podstawaPalacz;
-    int wysokoscPalacz;
+    int aPalacz;
+    int bPalacz;
     float polePalacz;
 
     public void pobieranieDanych() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("Podaj długość podstawy trójkąta: ");
-        podstawaPalacz = Integer.parseInt(br.readLine());
+        System.out.println("Podaj długość pierwszgo boku: ");
+        aPalacz = Integer.parseInt(br.readLine());
 
-        System.out.println("Podaj długość wysokości opadającej na podstawę");
-        wysokoscPalacz = Integer.parseInt(br.readLine());
+        System.out.println("Podaj długość drugirgo boku: ");
+        bPalacz = Integer.parseInt(br.readLine());
     }
 
-    public float obliczaniePola(){
-        return podstawaPalacz * wysokoscPalacz / 2;
+    public int obliczaniePola(){
+        return aPalacz * bPalacz;
     }
 
     public void wyswietlaniePola() throws IOException {
         pobieranieDanych();
-        System.out.println("Podstawa wynosi: "+ podstawaPalacz +
-                "\nWysokość wynosi:" + wysokoscPalacz +
-                "\nObliczanie pola: " + podstawaPalacz + " * " + wysokoscPalacz + " / 2 = " + obliczaniePola());
+        System.out.println("Pierwszy bok wynosi: "+ aPalacz +
+                "\nDrugi bok wynosi:" + bPalacz +
+                "\nObliczanie pola: " + aPalacz + " * " + bPalacz + " = " + obliczaniePola());
     }
 }

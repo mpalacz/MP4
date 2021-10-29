@@ -9,7 +9,7 @@ Sekurak
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        RectangleArea poleTrojkataPalacz = new RectangleArea();
-        poleTrojkataPalacz.wyswietlaniePola();
+        RectangleArea poleProstokataPalacz = new RectangleArea();
+        poleProstokataPalacz.wyswietlaniePola();
     }
 }
