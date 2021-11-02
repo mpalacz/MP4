@@ -116,7 +116,7 @@ public class Main {
                         poprawoscDanychPalacz = sprawdzenieLiczbyPalacz(liczbaPalacz, systemLiczbowyPalacz);
                     } while (!poprawoscDanychPalacz);
 
-                    System.out.println("Liczba " + liczbaPalacz + " w systemie dziesiętnym wynosi: " + konwersjaNaDziesietnyPalacz(liczbaPalacz, systemLiczbowyPalacz));
+                    System.out.println("Liczba " + liczbaPalacz + " w systemie " + systemLiczbowyPalacz + ", w systemie dziesiętnym wynosi: " + konwersjaNaDziesietnyPalacz(liczbaPalacz, systemLiczbowyPalacz));
                     break;
                 case 'b':
                     do {
@@ -201,11 +201,15 @@ public class Main {
 
                     System.out.println("\n" + aLiczbaPalacz + " + " + bLiczbaPalacz + " = " + konwersjaZDziesietnegoPalacz(String.valueOf(Float.parseFloat(konwersjaNaDziesietnyPalacz(aLiczbaPalacz, aSystemLiczbowyPalacz)) / Float.parseFloat(konwersjaNaDziesietnyPalacz(bLiczbaPalacz, bSystemLiczbowyPalacz))), systemLiczbowyWynikuPalacz));
                     break;
+                case 'w':
+                    System.out.println("Probram zakończył działanie.");
+                    break;
                 default:
                     System.out.println("Nie wybrano żadnej funkcji!\n\n");
                     break;
             }
+            System.out.println("Aby kontynuować naciśnij Enter...");
+            br.readLine();
         } while (klawiszPalacz != 'w');
-        System.out.println("Probram zakończył działanie.");
     }
 }
