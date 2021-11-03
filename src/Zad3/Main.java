@@ -47,18 +47,25 @@ public class Main {
     }
 
     public static String konwersjaZDziesietnegoPalacz(int liczbaPalacz, int systemLiczbowyPalacz){
+        if (systemLiczbowyPalacz == 10) return String.valueOf(liczbaPalacz);
+
         String wynik = "";
+        boolean czyUjemnaPalacz = liczbaPalacz < 0;
         while (liczbaPalacz != 0){
             wynik = (liczbaPalacz % systemLiczbowyPalacz) + wynik;
             liczbaPalacz /= 2;
         }
+        if (czyUjemnaPalacz) return "-" + wynik;
         return wynik;
     }
 
     public static int konwersjaNaDziesietnyPalacz(String liczbaPalacz, int systemLiczbowyPalacz){
         String odwroconaLiczbaPalacz = "";
-        for (int i = 0; i < liczbaPalacz.length(); i++)
+        boolean czyUjemnaPalacz = liczbaPalacz.charAt(0) == '-';
+        for (int i = 0; i < liczbaPalacz.length(); i++) {
+            if (czyUjemnaPalacz) i++;
             odwroconaLiczbaPalacz = liczbaPalacz.charAt(i) + odwroconaLiczbaPalacz;
+        }
 
         int wynik = 0;
         for (int i = 0; i < odwroconaLiczbaPalacz.length(); i++){
@@ -85,7 +92,29 @@ public class Main {
                     wynik += (odwroconaLiczbaPalacz.charAt(i) - 48) * Math.pow(systemLiczbowyPalacz, i);
             }
         }
+        if (czyUjemnaPalacz) return wynik * (-1);
         return wynik;
+    }
+
+    public static String kalkulatorPalacz(String aLiczbaPalacz, String bLiczbaPalacz, int aSystemLiczbowyPalacz, int bSystemLiczbowyPalacz, int systemLiczbowyWynikuPalacz, char typObliczenPalacz){
+        int aPalacz = konwersjaNaDziesietnyPalacz(aLiczbaPalacz, aSystemLiczbowyPalacz);
+        int bPalacz = konwersjaNaDziesietnyPalacz(bLiczbaPalacz, bSystemLiczbowyPalacz);
+        int wynikPalacz = 0;
+
+        switch (typObliczenPalacz){
+            case '+':
+                wynikPalacz = aPalacz + bPalacz;
+                break;
+            case '-':
+                wynikPalacz = aPalacz - bPalacz;
+                break;
+            case '*':
+                wynikPalacz = aPalacz * bPalacz;
+                break;
+            case '/':
+                wynikPalacz = aPalacz / bPalacz;
+        }
+        return konwersjaZDziesietnegoPalacz(wynikPalacz, systemLiczbowyWynikuPalacz);
     }
 
     public static void main(String[] args) throws IOException {
@@ -147,7 +176,7 @@ public class Main {
 
                     systemLiczbowyWynikuPalacz = wczytanieSystemuLiczbowegoPalacz("W jakim systemie liczbowym podać wynik?");
 
-                    System.out.println("\n" + aLiczbaPalacz + " + " + bLiczbaPalacz + " = " + (konwersjaZDziesietnegoPalacz(konwersjaNaDziesietnyPalacz(aLiczbaPalacz, aSystemLiczbowyPalacz) + konwersjaNaDziesietnyPalacz(bLiczbaPalacz, bSystemLiczbowyPalacz), systemLiczbowyWynikuPalacz)));
+                    System.out.println("\n" + aLiczbaPalacz + " (" + aSystemLiczbowyPalacz + ") + " + bLiczbaPalacz + " (" + bSystemLiczbowyPalacz + ") = " + kalkulatorPalacz(aLiczbaPalacz, bLiczbaPalacz, aSystemLiczbowyPalacz, bSystemLiczbowyPalacz, systemLiczbowyWynikuPalacz, '+'));
                     break;
                 case 'd':
                     do {
@@ -164,7 +193,7 @@ public class Main {
 
                     systemLiczbowyWynikuPalacz = wczytanieSystemuLiczbowegoPalacz("W jakim systemie liczbowym podać wynik?");
 
-                    System.out.println("\n" + aLiczbaPalacz + " + " + bLiczbaPalacz + " = " + (konwersjaZDziesietnegoPalacz(konwersjaNaDziesietnyPalacz(aLiczbaPalacz, aSystemLiczbowyPalacz) - konwersjaNaDziesietnyPalacz(bLiczbaPalacz, bSystemLiczbowyPalacz), systemLiczbowyWynikuPalacz)));
+                    System.out.println("\n" + aLiczbaPalacz + " (" + aSystemLiczbowyPalacz + ") -" + bLiczbaPalacz + " (" + bSystemLiczbowyPalacz + ") = " + kalkulatorPalacz(aLiczbaPalacz, bLiczbaPalacz, aSystemLiczbowyPalacz, bSystemLiczbowyPalacz, systemLiczbowyWynikuPalacz, '-'));
                     break;
                 case 'e':
                     do {
@@ -181,7 +210,7 @@ public class Main {
 
                     systemLiczbowyWynikuPalacz = wczytanieSystemuLiczbowegoPalacz("W jakim systemie liczbowym podać wynik?");
 
-                    System.out.println("\n" + aLiczbaPalacz + " + " + bLiczbaPalacz + " = " + (konwersjaZDziesietnegoPalacz(konwersjaNaDziesietnyPalacz(aLiczbaPalacz, aSystemLiczbowyPalacz) * konwersjaNaDziesietnyPalacz(bLiczbaPalacz, bSystemLiczbowyPalacz), systemLiczbowyWynikuPalacz)));
+                    System.out.println("\n" + aLiczbaPalacz + " (" + aSystemLiczbowyPalacz + ") * " + bLiczbaPalacz + " (" + bSystemLiczbowyPalacz + ") = " + kalkulatorPalacz(aLiczbaPalacz, bLiczbaPalacz, aSystemLiczbowyPalacz, bSystemLiczbowyPalacz, systemLiczbowyWynikuPalacz, '*'));
                     break;
                 case 'f':
                     do {
@@ -198,7 +227,7 @@ public class Main {
 
                     systemLiczbowyWynikuPalacz = wczytanieSystemuLiczbowegoPalacz("W jakim systemie liczbowym podać wynik?");
 
-                    System.out.println("\n" + aLiczbaPalacz + " + " + bLiczbaPalacz + " = " + (konwersjaZDziesietnegoPalacz(konwersjaNaDziesietnyPalacz(aLiczbaPalacz, aSystemLiczbowyPalacz) / konwersjaNaDziesietnyPalacz(bLiczbaPalacz, bSystemLiczbowyPalacz), systemLiczbowyWynikuPalacz)));
+                    System.out.println("\n" + aLiczbaPalacz + " (" + aSystemLiczbowyPalacz + ") / " + bLiczbaPalacz + " (" + bSystemLiczbowyPalacz + ") = " + kalkulatorPalacz(aLiczbaPalacz, bLiczbaPalacz, aSystemLiczbowyPalacz, bSystemLiczbowyPalacz, systemLiczbowyWynikuPalacz, '/'));
                     break;
                 case 'w':
                     System.out.println("Probram zakończył działanie.");
